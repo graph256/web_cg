@@ -1,0 +1,55 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Материнская форма</title>
+
+	<link rel="stylesheet" href="{% static 'css/mather.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+	<script src="{% static 'libs/gsap/gsap.min.js' %}" defer></script>
+	<script src="{% static 'libs/gsap/ScrollTrigger.min.js' %}" defer></script>
+	<script src="{% static 'libs/gsap/ScrollSmoother.min.js' %}" defer></script>
+
+	<script src="{% static 'js/app.js' %}" defer></script>
+
+</head>
+<body>
+
+	<div class="wrapper">
+		<div class="content">
+
+			<header class="main-header">
+				<div class="layers">
+					<div class="layer__header">
+						<div class="layers__caption"></div>
+						<div class="layers__title">Добро</div>
+						<div class="layers__title">Пожаловать</div>
+						<div class="layers__title">   |   </div>
+					</div>
+
+					<div class="layer layers__base" style="background-image:  url({% static 'img/layer-base.png' %});"></div>
+					<div class="layer layers__middle" style="background-image: url({% static 'img/layer-middle.png' %});"></div>
+					<div class="layer layers__front" style="background-image: url({% static 'img/layer-front.png' %});"></div>
+				</div>
+			</header>
+		
+			<article class="main-article" style="background-image: url({% static 'img/dungeon.jpg' %});">
+				<div class="main-article__content">
+					<h2 class="main-article__header">Интерактивная обучающая система</h2>
+					<h2 class="main-article__header">по компьютерной графике</h2>
+					<p class="main-article__paragraph"></p>
+					<a href="{% url 'login' %}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Войти</a>
+				</div>
+				<div class="copy"></div>
+			</article>
+		</div>
+	</div>
+
+</body>
+</html>

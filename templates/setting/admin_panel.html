@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock title %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Home</a> <i>&rsaquo;</i> Админ Панель</div>
+<!-- <br> -->
+<div class="title-1"><i class="fas fa-user-tie"></i>Админ Панель</div>
+<br>
+<br>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>{{ message }}
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>{{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="admin-panel">
+    <div class="row">
+        <div class="col-md-6 p-5 bg-gradient-light">
+            Управление<a class="btn btn-sm btn-secondary" href="{% url 'lecturer_list' %}"> Преподаватель &raquo;</a>
+            <p><span>&LongRightArrow;</span> СЧМУ (Создание, Чтение, Обновление и Удаление)</p><hr>
+            Управление<a class="btn btn-sm btn-secondary" href="{% url 'student_list' %}"> Студент &raquo;</a>
+            <p><span>&LongRightArrow;</span> СЧМУ (Создание, Чтение, Обновление и Удаление)</p><hr>
+            Управление<a class="btn btn-sm btn-secondary" href="{% url 'session_list' %}"> Сессия &raquo;</a>
+            <p><span>&LongRightArrow;</span> СЧМУ (Создание, Чтение, Обновление и Удаление)</p><hr>
+            Управление<a class="btn btn-sm btn-secondary" href="{% url 'semester_list' %}"> Семестр &raquo;</a>
+            <p><span>&LongRightArrow;</span> СЧМУ (Создание, Чтение, Обновление и Удаление)</p>
+        </div>
+        <div class="col-md-6 p-5 bg-gradient-light">
+            Добавить курс и удалить
+            <label class="switch switch-text switch-success switch-pill" style="float: right;">
+              <input type="checkbox" class="switch-input" checked="true">
+              <span data-on="On" data-off="Off" class="switch-label"></span>
+              <span class="switch-handle"></span>
+            </label>
+            <p><span>&LongRightArrow;</span> Переключить
+                <i class="info-text bg-success">Вкл</i> or <i class="info-text bg-danger">Выкл</i>
+            </p><hr>
+
+            Управление<a class="btn btn-sm btn-secondary" href="{% url 'programs' %}"> Программы и Курсы &raquo;</a>
+            <p><span>&LongRightArrow;</span> СЧМУ (Создание, Чтение, Обновление и Удаление)</p>
+            <p><span>&LongRightArrow;</span> СЧМУ (Создание, Чтение, Обновление и Удаление)</p><hr>
+            Управление<a class="btn btn-sm btn-secondary" href="{% url 'course_allocation_view' %}"> Распределение курсов &raquo;</a>
+            <p><span>&LongRightArrow;</span> СЧМУ (Создание, Чтение, Обновление и Удаление)</p><hr>
+            Управление<a class="btn btn-sm btn-secondary" href="{% url 'home' %}"> Новости и события &raquo;</a>
+            <p><span>&LongRightArrow;</span> СЧМУ (Создание, Чтение, Обновление и Удаление)</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
