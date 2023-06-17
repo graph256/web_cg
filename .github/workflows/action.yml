@@ -32,4 +32,4 @@ jobs:
             echo DB_PORT=5432 >> .env
             echo STRIPE_SECRET_KEY=LEAVE_THIS_BLANK_FOR_NOW >> .env
             echo STRIPE_PUBLISHABLE_KEY=LEAVE_THIS_BLANK_FOR_NOW >> .env
-            docker-compose up --detach --build
+            docker compose up --detach --build
