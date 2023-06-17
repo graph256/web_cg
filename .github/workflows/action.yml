@@ -1,0 +1,35 @@
+
+# Controls when the action will run.
+on:
+  push:
+    branches:
+        - main
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    #if: github.ref == 'refs/heads/frontend'
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: 62.113.103.174
+          username: root
+          password: tjcpDUS&~E99
+          port: 22
+          script: |
+            git clone git@github.com:graph256/web_cg.git
+            git status
+            touch .env
+            echo DB_NAME=postgres >> .env
+            echo DB_USER=postgres >> .env
+            echo DB_PASSWORD=123 >> .env
+            echo DB_HOST=db >> .env
+            echo DB_PORT=5432 >> .env
+            echo STRIPE_SECRET_KEY=LEAVE_THIS_BLANK_FOR_NOW >> .env
+            echo STRIPE_PUBLISHABLE_KEY=LEAVE_THIS_BLANK_FOR_NOW >> .env
+            docker compose up --detach --build
