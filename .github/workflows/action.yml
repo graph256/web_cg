@@ -1,4 +1,3 @@
-name: https://devtest.talkaboutall.ru/api/
 
 # Controls when the action will run.
 on:
@@ -23,8 +22,7 @@ jobs:
           password: tjcpDUS&~E99
           port: 22
           script: |
-            git checkout main
-            git pull git@github.com:graph256/web_cg.git main
+            git clone git@github.com:graph256/web_cg.git
             git status
             touch .env
             echo DB_NAME=postgres >> .env
