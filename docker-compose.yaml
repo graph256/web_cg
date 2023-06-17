@@ -1,4 +1,4 @@
-version: '3.8'
+ersion: '3.8'
 # without volumes
 services:
 
@@ -29,7 +29,7 @@ services:
       - ./.env
     depends_on:
       - db
+    links:
+      - db
     command: > 
-      bash -c "python3 manage.py collectstatic --noinput && python3 manage.py migrate  && gunicorn -b 0.0.0.0:8000 app.wsgi:application "
-
-
+      bash -c "python3 manage.py collectstatic --noinput && python3 manage.py migrate  && gunicorn -b 0.0.0.0:8000 SMS.wsgi:application"
