@@ -6,6 +6,7 @@ urlpatterns = [
     path('<slug>/quizzes/', quiz_list, name='quiz_index'),
 
     path('progress/', view=QuizUserProgressView.as_view(), name='quiz_progress'),
+    path('statics/', view=UserStatisticView.as_view(), name='user-statics'),
 
     # path('marking/<int:pk>/', view=QuizMarkingList.as_view(), name='quiz_marking'),
     path('marking_list/', view=QuizMarkingList.as_view(), name='quiz_marking'),

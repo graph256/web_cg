@@ -1,7 +1,12 @@
 import random
+import uuid
+from io import BytesIO
+import numpy as np
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.db.models import Count
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, TemplateView, FormView, CreateView, FormView, DeleteView, UpdateView
@@ -10,6 +15,7 @@ from django.urls import reverse_lazy
 from django.db import transaction
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
+import matplotlib.pyplot as plt
 
 from accounts.decorators import student_required, lecturer_required
 from .models import *
@@ -100,6 +106,25 @@ class MCQuestionCreate(CreateView):
 
         return context
 
+    def post(self, request, *args, **kwargs):
+        quiz_instance = Quiz.objects.get(pk=request.POST.get("quiz"))
+        if quiz_instance.category == "task":
+            tmp = request.POST.copy()
+            tmp["choice_order"] = "random"
+            tmp["choice_set-TOTAL_FORMS"] = "5"
+            tmp["choice_set-INITIAL_FORMS"] = "0"
+            tmp["choice_set-MIN_NUM_FORMS"] = "0"
+            tmp["choice_set-MAX_NUM_FORMS"] = "1000"
+            tmp["choice_set-0-correct"] = "on"
+            tmp["choice_set-0-choice"] = request.POST.get("explanation")
+            tmp["choice_set-1-choice"] = "123"
+            tmp["choice_set-2-choice"] = ""
+            tmp["choice_set-3-choice"] = ""
+            tmp["choice_set-4-choice"] = ""
+            self.request.POST = tmp
+            request.POST = tmp
+        return super().post(request, *args, **kwargs)
+
     def form_valid(self, form):
         context = self.get_context_data()
         formset = context['formset']
@@ -158,6 +183,55 @@ class QuizUserProgressView(TemplateView):
         context['exams_counter'] = progress.show_exams().count()
         return context
 
+
+@method_decorator([login_required], name='dispatch')
+class UserStatisticView(TemplateView):
+    template_name = 'statics.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserStatisticView, self).dispatch(request, *args, **kwargs)
+
+    def get_or_create_hist(self):
+        user = User.objects.get(pk=self.request.user.pk)
+        completed_task = CompletedTask.objects.filter(user=user)
+        if not completed_task.exists():
+            return
+        if user.hist_date.day != datetime.datetime.now().day:
+            d = {}
+            for c in completed_task:
+                if c.created_at not in d:
+                    d[c.created_at] = 0
+                d[c.created_at] += 1
+            completed = list(d.values())
+            days = list(d.keys())
+            index = np.arange(len(days))
+            plt.bar(index, completed, color='green')
+            plt.xlabel('Дата выполнения')
+            plt.ylabel('Выполнено задач')
+            plt.xticks(index, days)
+            img_byte_arr = BytesIO()
+            plt.savefig(img_byte_arr, format="png")
+            plt.plot()
+            hist_png = InMemoryUploadedFile(
+                img_byte_arr,
+                None,
+                f"{user.pk}-hist-{str(uuid.uuid4())[:10]}.png",
+                "image/png",
+                img_byte_arr.tell(),
+                None,
+            )
+            user.hist_static = hist_png
+            user.save()
+
+            plt.close()
+            img_byte_arr.close()
+
+    def get_context_data(self, **kwargs):
+        context = super(UserStatisticView, self).get_context_data(**kwargs)
+        context['hist_1'] = self.get_or_create_hist()
+        return context
+
+
 from result.models import TakenCourse
 
 @method_decorator([login_required, lecturer_required], name='dispatch')
@@ -212,6 +286,19 @@ class QuizTake(FormView):
     template_name = 'question.html'
     result_template_name = 'result.html'
     # single_complete_template_name = 'single_complete.html'
+
+    def post(self, request, *args, **kwargs):
+        if type(request.POST.get("answer")) is str:
+            tempdict = request.POST.copy()
+            instance_mc_qn = MCQuestion.objects.get(pk=request.POST.get("question_id"))
+            if request.POST.get("answer") == instance_mc_qn.explanation:
+                tempdict["answers"] = instance_mc_qn.choice_set.first().pk
+                CompletedTask.objects.create(user=request.user)
+            else:
+                tempdict["answers"] = instance_mc_qn.get_incorrect_random_pk()
+            self.request.POST = tempdict
+            request.POST = tempdict
+        return super().post(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
         self.quiz = get_object_or_404(Quiz, slug=self.kwargs['slug'])

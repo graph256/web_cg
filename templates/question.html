@@ -21,7 +21,7 @@
 	{% if previous.answers %}
 
 	<p class="muted"><small>{% trans "Предыдущий вопрос" %}:</small></p>
-	<p>{{ previous.previous_question }}</p>
+	{% autoescape off %}<p>{{ previous.previous_question }}</p>{% endautoescape %}
 
 	{% if previous.previous_outcome %}
 		<div class="alert alert-success">
@@ -31,7 +31,7 @@
 		<p><small>
 			{% trans "Ваш ответ был" %} </small>
 			<strong>
-			{{ previous.previous_outcome|yesno:"correct,incorrect" }}
+			{{ previous.previous_outcome|yesno:"верный,неверный" }}
 			</strong>
 		</p>
 
@@ -59,7 +59,7 @@
                     <td>
                     {% if previous.question_type.MCQuestion %}
                       {% if answer.id|add:"0" == previous.previous_answer|add:"0" %}
-                        {% trans "This was your answer." %}
+                        {% trans "Это был ваш ответ." %}
                       {% endif %}
                     {% endif %}
                     </td>
@@ -70,7 +70,7 @@
           </table>
         {% endif %}
 		
-
+        {% if quiz.category != "task" %}
         <p><strong>{% trans "Explanation" %}:</strong></p>
         <p class="p-2" style="background-color: #fcf8e3;">
           {% if previous.previous_question.explanation %}
@@ -79,6 +79,7 @@
             {% trans "No explanation set to this question." %}
           {% endif %}
 		</p>
+        {% endif %}
 		
 		<!-- <p><strong>{% trans "Explanation" %}:</strong></p>
 		<div class="well " style="background-color: #fcf8e3;">
@@ -118,7 +119,7 @@
 
 	<p>
 		<small class="muted">{% trans "Категория теста" %}:</small>
-		<strong>{{ quiz.category }}</strong>
+		<strong>{{ quiz.get_category_display }}</strong>
 	</p>
 
 	<div class="card">
@@ -132,6 +133,10 @@
 		<div class="card-subtitle p-4">
 			<form action="" method="POST">{% csrf_token %}
 				<input type=hidden name="question_id" value="{{ question.id }}">
+                {% if quiz.category == "task" %}
+                <a class="btn btn-large btn-block btn-primary" style="margin-bottom: 50px;" href="https://playcode.io/canvas" target="_blank">Интерпретатор</a>
+                    <textarea name="answer" placeholder="Вставьте свое решение" style="width: 870px; padding-bottom: 250px;"></textarea>
+                {% else %}
 
 				<ul class="list-group">
 
@@ -140,9 +145,11 @@
 						{{ answer }}
 					</li>
 					{% endfor %}
+                </ul>
 
-				</ul>
-				<input type="submit" value={% trans "Проверять" %} class="btn btn-large btn-block btn-primary" >
+                {% endif %}
+
+                    <input type="submit" value={% trans "Проверять" %} class="btn btn-large btn-block btn-primary" >
 				<!-- <input type="submit" value={% trans "Previous" %} class="btn btn-large btn-block btn-outline-primary" > -->
 			</form>
 		</div>

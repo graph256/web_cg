@@ -10,7 +10,7 @@ from django.utils.timezone import now
 from django.conf import settings
 from django.db.models.signals import pre_save
 
-from django.db.models import Q
+from django.db.models import Q, F
 
 from model_utils.managers import InheritanceManager
 from course.models import Course
@@ -27,7 +27,8 @@ CHOICE_ORDER_OPTIONS = (
 CATEGORY_OPTIONS = (
     ('assignment', _('Задание')),
     ('exam', _('Экзамен')),
-    ('practice', _('Практический тест'))
+    ('practice', _('Практический тест')),
+    ('task', _('Практическая задача'))
 )
 
 
@@ -350,7 +351,7 @@ class Sitting(models.Model):
 
 class Question(models.Model):
     quiz = models.ManyToManyField(Quiz, verbose_name=_("Тест"), blank=True)
-    content = RichTextUploadingField( max_length=1000, blank=False, 
+    content = RichTextUploadingField(max_length=1000, blank=False,
         help_text=_("Введите текст вопроса, который вы хотите отобразить"), verbose_name=_('Вопрос'))
     explanation = RichTextUploadingField(max_length=2000, blank=True,
         help_text=_("Объяснение, которое будет показано после ответа на вопрос."),
@@ -381,6 +382,9 @@ class MCQuestion(Question):
             return True
         else:
             return False
+
+    def get_incorrect_random_pk(self):
+        return self.choice_set.filter(correct=False).first().pk
 
     def order_choices(self, queryset):
         if self.choice_order == 'content':
@@ -445,3 +449,11 @@ class Essay_Question(Question):
     class Meta:
         verbose_name = _("Вопрос в стиле эссе")
         verbose_name_plural = _("Вопросы в стиле эссе")
+
+
+class CompletedTask(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    created_at = models.DateField(auto_now_add=True, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.user)

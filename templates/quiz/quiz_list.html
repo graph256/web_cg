@@ -27,11 +27,11 @@
 
     <style>.bg-light-warning{background-color: rgb(252, 217, 111) !important;}</style>
 
-    <div class="header-title-xl text-center">Список тестов из {{ course }}</div>
+    <div class="header-title-xl text-center">Список тестов и заданий из {{ course }}</div>
     <div class="title-line mb-5"></div>
 
     {% if request.user.is_superuser or request.user.is_lecturer %}
-    <a class="btn btn-outline-primary br-2 mb-4" href="{% url 'quiz_create' course.slug %}">&plus; Добавить тест</a>
+    <a class="btn btn-outline-primary br-2 mb-4" href="{% url 'quiz_create' course.slug %}">&plus; Добавить тест или задание</a>
     {% endif %}
 
     <div class="row">
@@ -71,7 +71,11 @@
                     <small class="col-6 text-left">{% trans "Category" %}: <b>{{ quiz.category }}</b></small>
                     <small class="col-6 text-right">Time set: <b>1:30</b></small>
                 </div> -->
+                {% if quiz.category == "task" %}
+                <a class="btn btn-block btn-secondary" href="{% url 'quiz_take' pk=course.pk slug=quiz.slug %}">{% trans "Начать практическую часть" %} &raquo;</a>
+                {% else %}
                 <a class="btn btn-block btn-secondary" href="{% url 'quiz_take' pk=course.pk slug=quiz.slug %}">{% trans "Начать тест" %} &raquo;</a>
+                {% endif %}
             </div>
         </div>
         {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}

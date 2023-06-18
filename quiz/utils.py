@@ -29,3 +29,28 @@ def unique_slug_generator(instance, new_slug=None):
                 )
         return unique_slug_generator(instance, new_slug=new_slug)
     return slug
+
+
+"""
+<QueryDict: {'csrfmiddlewaretoken': ['Qy6CudhNE4xvolYcWpVOt6qjkVTTPzJtGwTj7Jm6wfJNVM3Re9CIc7dSLpmRnn4k'],
+ 'quiz': ['26'], 
+ 'content': ['<p>mnasndnmasd</p>\r\n'], 'explanation': ['<p>aksdjaskdasd</p>\r\n'], 
+ 'choice_order': ['random'], 'choice_set-TOTAL_FORMS': ['5'], 
+ 'choice_set-INITIAL_FORMS': ['0'], 'choice_set-MIN_NUM_FORMS': ['0'],
+  'choice_set-MAX_NUM_FORMS': ['1000'],
+   'choice_set-0-choice': ['nzmzxmcmzxc'], 
+   'choice_set-1-choice': ['sanmdasdas'], 
+   'choice_set-2-correct': ['on'], 
+   'choice_set-2-choice': ['wqkeqwe'],
+    'choice_set-3-choice': [''], 
+    'choice_set-4-choice': ['']}>
+
+<QueryDict: {'csrfmiddlewaretoken': ['ESDLwpuQOf6iycKTLrEQgDlY1mBZxXEfuQqs9Vz9GqiA5DPy3blKZE8xsQ4X5LZ6'], 
+'quiz': ['27'], 'content': ['<p>&nbsp;mnmansmndmnasd</p>\r\n'], 
+'explanation': ['qmwnemnqwe'], 'choice_order': ['random'], 
+'choice_set-TOTAL_FORMS': ['5'], 'choice_set-INITIAL_FORMS': ['0'],
+ 'choice_set-MIN_NUM_FORMS': ['0'], 'choice_set-MAX_NUM_FORMS': ['1000'],
+  'choice_set-0-correct': ['on'], 'choice_set-0-choice': ['qmwnemnqwe'],
+   'choice_set-1-choice': [''], 'choice_set-2-choice': [''],
+    'choice_set-3-choice': [''], 'choice_set-4-choice': ['']}>
+"""

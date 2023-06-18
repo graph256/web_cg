@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+
+  web:
+    build:
+      context: .
+      args:
+        - DEV=true
+    command: >
+       sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - .:/code
+    env_file:
+      - .env
+
+
+volumes:
+  db-data:

@@ -60,7 +60,8 @@ class User(AbstractUser):
     address = models.CharField(max_length=60, blank=True, null=True)
     picture = models.ImageField(upload_to='profile_pictures/%y/%m/%d/', default='default.png', null=True)
     email = models.EmailField(blank=True, null=True)
-
+    hist_static = models.ImageField(upload_to='hist_static/%y/%m/%d/', blank=True, null=True)
+    hist_date = models.DateTimeField(auto_now=True, null=True, blank=True)
     username_validator = ASCIIUsernameValidator()
 
     objects = UserManager()

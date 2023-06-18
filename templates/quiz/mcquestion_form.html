@@ -24,23 +24,38 @@
                     <span class="danger">{{ form.quiz.errors }}</span>
                     <small class="d-block text-muted">Удерживайте нажатой «Control» или «Command» на Mac, чтобы выбрать более одного.</small>
                 </div>
+            {% if quiz_obj.category == "task" %}
+                <div class="form-group">
+                    <label for="content">Задание</label> {{ form.content }}
+                    <span class="danger">{{ form.content.errors }}</span>
+                    <small class="d-block text-muted">Введите текст задания, который вы хотите отобразить.</small>
+                </div>
+            {% else %}
                 <div class="form-group">
                     <label for="content">{{ form.content.label }}</label> {{ form.content }}
                     <span class="danger">{{ form.content.errors }}</span>
                     <small class="d-block text-muted">Введите текст вопроса, который вы хотите отобразить.</small>
                 </div>
+            {% endif %}
                 <div class="form-group">
                     <label for="figure">{{ form.figure.label }}</label> {{ form.figure }}
                     <span class="danger">{{ form.figure.errors }}</span>
                     <small class="d-block text-muted">Добавьте изображение к вопросу, если это необходимо.</small>
                 </div>
+                {% if quiz_obj.category != "task" %}
                 <div class="form-group">
                     <label for="explanation">{{ form.explanation.label }}</label> {{ form.explanation }}
                     <span class="danger">{{ form.explanation.errors }}</span>
                     <small class="d-block text-muted">Объяснение, которое будет показано после ответа на вопрос.</small>
                 </div>
+                {% endif %}
             </div>
-            <div class="col mx-3 py-4 border bg-white">
+            {% if quiz_obj.category == "task" %}
+                <div class="form-group">
+                    <textarea name="explanation" placeholder="Решение" style="width: 915px; margin-left: 18px; padding-bottom: 100px; margin-top: 20px;"></textarea>
+                </div>
+            {% else %}
+                <div class="col mx-3 py-4 border bg-white">
                 <div class="form-group">
                     <label for="choice_order">{{ form.choice_order.label }}</label> {{ form.choice_order }}
                     <span class="danger">{{ form.choice_order.errors }}</span>
@@ -63,7 +78,9 @@
                 {% endfor %}
                 </div>
             </div>
+                    {% endif %}
         </div>
+
         <center>
             <button type="submit" formnovalidate name="another" class="btn btn-lg btn-outline-primary">
                 Сохранить и добавить еще

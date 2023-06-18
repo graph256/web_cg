@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import gettext_lazy as _
 
-from .models import Quiz, Progress, Question, MCQuestion, Choice, Essay_Question, Sitting
+from .models import Quiz, Progress, Question, MCQuestion, Choice, Essay_Question, Sitting, CompletedTask
 
 
 class ChoiceInline(admin.TabularInline):
@@ -67,8 +67,15 @@ class EssayQuestionAdmin(admin.ModelAdmin):
     search_fields = ('content', 'explanation')
     filter_horizontal = ('quiz',)
 
+
+class StaticsAdmin(admin.ModelAdmin):
+    readonly_fields = ['user', 'created_at']
+    fields = [*readonly_fields]
+
+
 admin.site.register(Quiz, QuizAdmin)
 admin.site.register(MCQuestion, MCQuestionAdmin)
 admin.site.register(Progress, ProgressAdmin)
 admin.site.register(Essay_Question, EssayQuestionAdmin)
 admin.site.register(Sitting)
+admin.site.register(CompletedTask, StaticsAdmin)

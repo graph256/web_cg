@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} {% trans "Страница статистики" %}  {% endblock %}
+
+{% block description %} {% trans "Страница статистики пользователя" %} {% endblock %}
+
+{% block content %}
+
+<div id="input-nav"><a href="{% url 'home' %}" class="primary1">Домашняя</a> <i>&rsaquo;</i> Страница прогресса</div>
+
+    {% if request.user.hist_static %}
+    <div id="myChart" style="max-width:300px !important; height:300px !important;">
+    <img src="/media/{{ request.user.hist_static }}/" style="width: 500px">
+    </div>
+    {% else %}
+  	<div class="col-12 p-4 text-center"><h3><i class="far fa-frown"></i></h3> Записей пока нет. чтобы получить хороший результат, попробуйте выполнить несколько викторин в своем курсе.</div>
+    {% endif %}
+
+{% endblock %}
+
+
+
+
+

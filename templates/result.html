@@ -33,10 +33,10 @@
   {% if previous.answers %}
     <div class="card bg-white p-3">
         <p class="muted"><small>{% trans "предыдущий вопрос" %}:</small></p>
-        <p>{{ previous.previous_question }}</p>
-        <p>Your answer was
+        {% autoescape off %}<p>{{ previous.previous_question }}</p>{% endautoescape %}
+        <p>Ваш ответ
         <strong>
-            {{ previous.previous_outcome|yesno:"correct,incorrect" }}
+            {{ previous.previous_outcome|yesno:"верный,неверный" }}
         </strong>
         </p>
 
@@ -62,7 +62,7 @@
                     <td>
                     {% if previous.question_type.MCQuestion %}
                       {% if answer.id|add:"0" == previous.previous_answer|add:"0" %}
-                        {% trans "This was your answer." %}
+                        {% trans "Это был ваш ответ." %}
                       {% endif %}
                     {% endif %}
                     </td>
@@ -72,7 +72,7 @@
             </tbody>
           </table>
         {% endif %}
-
+        {% if quiz.category != "task" %}
         <p><strong>{% trans "Explanation" %}:</strong></p>
         <p class="p-2" style="background-color: #fcf8e3;">
           {% if previous.previous_question.explanation %}
@@ -81,6 +81,7 @@
             {% trans "К этому вопросу не задано объяснение." %}
           {% endif %}
         </p>
+        {% endif %}
         <hr>
     </div>
 
