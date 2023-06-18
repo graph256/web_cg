@@ -68,6 +68,7 @@ PROJECT_APPS = [
     'payments.apps.PaymentsConfig',
 ]
 
+
 # Combine all apps
 INSTALLED_APPS = DJANGO_APPS + THIRED_PARTY_APPS + PROJECT_APPS
 
@@ -82,6 +83,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'SMS.urls'
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://62.113.103.174",
+    "http://62.113.103.174:8000",
+]
+
 
 TEMPLATES = [
     {
