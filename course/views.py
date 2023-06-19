@@ -456,7 +456,7 @@ def course_drop(request):
             course = Course.objects.get(pk=ids[s])
             obj = TakenCourse.objects.get(student=student, course=course)
             obj.delete()
-            messages.success(request, 'Successfully Dropped!')
+            messages.success(request, 'Успешно удален.')
         return redirect('course_registration')
 # ########################################################
 

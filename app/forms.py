@@ -26,6 +26,7 @@ class SessionForm(forms.ModelForm):
                 'type': 'date',
             }
         ),
+        label="Следующая сессия начинается",
         required=True)
 
     class Meta:

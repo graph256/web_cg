@@ -15,7 +15,7 @@
     {% if messages %}
         <div id="popup-box-messages">
             <div class="box-messages">
-                <a id="popup-btn-messages" class="btn btn-light"><i class="fas fa-times"></i></a><br><br>
+                <a href="{{ request.path }}" id="popup-btn-messages" class="btn btn-light"><i class="fas fa-times"></i></a><br><br>
                 {% for message in messages %}
                     <div class="alert alert-{{message.tags}}">
                         {{ message }}

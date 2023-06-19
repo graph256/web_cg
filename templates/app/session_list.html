@@ -67,11 +67,11 @@
                   <td></td>
                   <td>
                   <span class="text-danger">
-                    <i class="far fa-frown"></i>No Session.
+                    <i class="far fa-frown"></i>Нет сессий.
                     {% if request.user.is_superuser %}
                     <a href="{% url 'add_session' %}">
                     <i class="primary" style="font-size: 22px;">
-                       Add Session Now.
+                       Добавить сессию сейчас.
                     </i>
                     {% endif %}
                     </a>
