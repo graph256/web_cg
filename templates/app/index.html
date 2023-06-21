@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}{{ title }}{% endblock title %}
 {% load static %}
+{% load humanize %} 
 
 {% block content %}
 
@@ -91,7 +92,7 @@
 
                 <div class="date-wrapper">
                     <i class="fa fa-calendar mr-2"></i>
-                    {{ item.updated_date|timesince }} ago
+                    {{ item.updated_date|naturaltime }} 
                 </div>
 
             </div>
