@@ -60,7 +60,7 @@ class Quiz(models.Model):
     answers_at_end = models.BooleanField(blank=False, default=False, verbose_name=_("Ответы в конце"),
         help_text=_("Правильный ответ НЕ отображается после вопроса. Ответы отображаются в конце."))
 
-    exam_paper = models.BooleanField(blank=False, default=False, verbose_name=_("Экзаменационная бумага"),
+    exam_paper = models.BooleanField(blank=False, default=False, verbose_name=_("Экзаменационный лист"),
         help_text=_("Если да, результат каждой попытки пользователя будет сохранен. Необходимо для маркировки."))
 
     single_attempt = models.BooleanField(blank=False, default=False, verbose_name=_("Единственная попытка"), 

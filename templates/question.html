@@ -135,7 +135,7 @@
 				<input type=hidden name="question_id" value="{{ question.id }}">
                 {% if quiz.category == "task" %}
                 <a class="btn btn-large btn-block btn-primary" style="margin-bottom: 50px;" href="https://playcode.io/canvas" target="_blank">Интерпретатор</a>
-                    <textarea name="answer" placeholder="Вставьте свое решение" style="width: 870px; padding-bottom: 250px;"></textarea>
+                <textarea name="answer" placeholder="Вставьте свое решение" style="width: 870px; padding-bottom: 250px;"></textarea>
                 {% else %}
 
 				<ul class="list-group">
@@ -149,7 +149,7 @@
 
                 {% endif %}
 
-                    <input type="submit" value={% trans "Проверять" %} class="btn btn-large btn-block btn-primary" >
+                    <input type="submit" value={% trans "Проверить" %} class="btn btn-large btn-block btn-primary" >
 				<!-- <input type="submit" value={% trans "Previous" %} class="btn btn-large btn-block btn-outline-primary" > -->
 			</form>
 		</div>
