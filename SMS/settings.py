@@ -73,6 +73,7 @@ PROJECT_APPS = [
 # Combine all apps
 INSTALLED_APPS = DJANGO_APPS + THIRED_PARTY_APPS + PROJECT_APPS
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
