@@ -43,7 +43,6 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.humanize',
     'django_cleanup',
     'django_extensions',
     'ckeditor_uploader',
