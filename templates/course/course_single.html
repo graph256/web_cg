@@ -4,7 +4,11 @@
 
 {% block content %}
 
-
+<style>
+    canvas {
+        margin-left: 200px;
+    }
+</style>
 
 <div class="container">
 
@@ -46,10 +50,10 @@
     <p class="program-description">{{ course.summary|safe }}</p>
 
     
-      <!--3d-->
-    <div class="card">
-    <div class="content3D" style="max-width: 100px;"></div>
-    </div>
+     
+   <div class="content3D" style="max-width: 100px;"></div>
+     
+
 
     {% if request.user.is_superuser %}
     <div class="btn-flex">
@@ -287,9 +291,10 @@
         //Scene
         const scene = new THREE.Scene()
         scene.background = new THREE.Color("#fff");
+        
 
         //Camera
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 500);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
         camera.position.set(0, 0.5, 1)
 
         //render
@@ -323,7 +328,7 @@
         
         {
             const light = new THREE.DirectionalLight(0xffffff, 1)
-            light.position.set(-2, 0, 10)
+            light.position.set(-2, 0, 15)
             light.lookAt(0, -1, 0)
             scene.add(light)
 
@@ -361,7 +366,7 @@
         //OrbitControls
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.autoRotate = true;
-        controls.autoRotateSpeed = 1;
+        controls.autoRotateSpeed = 0.5;
         controls.enableDamping = true;
 
         //Resize
