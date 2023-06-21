@@ -7,7 +7,7 @@
 			</div>
 
 			<form class="form-header" action="{% url 'query' %}" method="GET">
-				<input id="primary-search" class="au-input au-input--xl" type="text" name="q" value="{{ request.GET.q }}"
+				<input id="primary-search" class="au-input au-input--" type="text" name="q" value="{{ request.GET.q }}"
 					placeholder="Найти все... #курс, #программа, #тест, #новости, #события" required />
 				<button class="au-btn--submit" type="submit">
 					<i class="fas fa-search"></i>
