@@ -285,8 +285,8 @@
     import { RectAreaLightHelper } from 'RectAreaLightHelper'
     import { RectAreaLightUniformsLib } from 'RectAreaLightUniformsLib';
 
-    function init() {
-        let container = document.querySelector('.content3D');
+    function init(model,canv) {
+        let container = document.querySelector(canv);
 
         //Scene
         const scene = new THREE.Scene()
@@ -295,7 +295,7 @@
 
         //Camera
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
-        camera.position.set(0, 0.5, 1)
+        camera.position.set(0, 1, 1)
 
         //render
         const renderer = new THREE.WebGLRenderer({antialias: true})
@@ -317,7 +317,7 @@
         // Model
         {
             const loader = new GLTFLoader();
-            loader.load("{% static 'model/scene.gltf' %}", gltf => { 
+            loader.load(model, gltf => { 
             scene.add(gltf.scene);
             }, 
                 function (error) {
@@ -328,8 +328,8 @@
         
         {
             const light = new THREE.DirectionalLight(0xffffff, 1)
-            light.position.set(-2, 0, 15)
-            light.lookAt(0, -1, 0)
+            light.position.set(10, 1, 4)
+            light.lookAt(2, 0, 0)
             scene.add(light)
 
             // Helper
@@ -339,7 +339,7 @@
 
         {
             const light = new THREE.DirectionalLight(0xffffff, 1)
-            light.position.set(2, 0, 5)
+            light.position.set(-10, 0, -5)
             light.lookAt(0, 1, 0)
             scene.add(light)
 
@@ -389,7 +389,37 @@
 
     }
 
-    init()
+    init("{% static 'model/xyz.gltf' %}",'.content3D')
+    init("{% static 'model/xyz.gltf' %}",'.content_2')
+    init("{% static 'model/xyz.gltf' %}",'.content_3')
+    init("{% static 'model/xyz.gltf' %}",'.content_4')
+    init("{% static 'model/xyz.gltf' %}",'.content_5')
+    init("{% static 'model/xyz.gltf' %}",'.content_6')
+    init("{% static 'model/xyz.gltf' %}",'.content_7')
+    init("{% static 'model/xyz.gltf' %}",'.content_8')
+    init("{% static 'model/xyz.gltf' %}",'.content_9')
+    init("{% static 'model/xyz.gltf' %}",'.content_10')
+    init("{% static 'model/xyz.gltf' %}",'.content_11')
+    init("{% static 'model/xyz.gltf' %}",'.content_12')
+    init("{% static 'model/xyz.gltf' %}",'.content_13')
+    init("{% static 'model/xyz.gltf' %}",'.content_14')
+    init("{% static 'model/xyz.gltf' %}",'.content_15')
+    init("{% static 'model/xyz.gltf' %}",'.content_16')
+    init("{% static 'model/xyz.gltf' %}",'.content_17')
+    init("{% static 'model/xyz.gltf' %}",'.content_18')
+    init("{% static 'model/xyz.gltf' %}",'.content_19')
+    init("{% static 'model/xyz.gltf' %}",'.content_20')
+    init("{% static 'model/xyz.gltf' %}",'.content_21')
+    init("{% static 'model/xyz.gltf' %}",'.content_22')
+    init("{% static 'model/xyz.gltf' %}",'.content_23')
+    init("{% static 'model/xyz.gltf' %}",'.content_24')
+    init("{% static 'model/xyz.gltf' %}",'.content_25')
+    init("{% static 'model/xyz.gltf' %}",'.content_26')
+    init("{% static 'model/xyz.gltf' %}",'.content_27')
+    init("{% static 'model/xyz.gltf' %}",'.content_28')
+    init("{% static 'model/xyz.gltf' %}",'.content_29')
+    init("{% static 'model/xyz.gltf' %}",'.content_30')
+
 </script>
 
 {% endblock content %}
