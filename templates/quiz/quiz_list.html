@@ -52,9 +52,22 @@
                 </div>
                 {% endif %}
                 <div class="row text-success mb-4">
-                    <em class="col-6 text-left">{{ quiz.category|title }} Тест</em>
+
+                    {% if quiz.category == 'task' %} 
+                        <em class="col-6 text-left">  Тест   </em>
+                    {% endif %}
+                    {% if quiz.category == 'assignment' %} 
+                        <em class="col-6 text-left">  Задание   </em>
+                    {% endif %}
+                    {% if quiz.category == 'exam' %} 
+                        <em class="col-6 text-left">  Экзамен   </em>
+                    {% endif %}
+                    {% if quiz.category == 'practice' %} 
+                        <em class="col-6 text-left">  Задача   </em>
+                    {% endif %}
+
                     <div class="col-6 text-right info-text bg-danger" style="border-bottom-right-radius: 1px; border-top-right-radius: 1px;">
-                        {{ quiz.get_questions.count }} Вопросы
+                        {{ quiz.get_questions.count }} Вопросов
                     </div>
                 </div>
                 <!-- <p>{{ quiz.category|title }} Quiz</p> -->
