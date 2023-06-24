@@ -29,7 +29,9 @@
         <div class="row">
             <div class="col ml-auto">
                 {% if request.user.is_superuser or request.user.is_lecturer %}
-               
+                <a class="add-button" href="{% url 'upload_file_view' course.slug %}"><i class="fas fa-plus"></i>
+                    Загрузить файл
+                </a>
                 {% endif %}
             </div>
             <div class="col text-right">
@@ -76,8 +78,8 @@
     {% endif %}
     {% endfor %}
     {% endif %}
-<!--
-    <div class="row mb-5">
+
+   <!-- <div class="row mb-5">
         <div class="col-md-12 p-0">
             <p class="form-title m-0">Видео уроки</p>
             <div class="table-responsive">
@@ -95,7 +97,7 @@
                     </thead>
                     <tbody>
                         {% for video in videos %}
-                        <tr>
+                          <tr>
                             <td>{{ forloop.counter }}</td>
                             <td><a href="{{ video.get_absolute_url }}" title="{{ video }}">
                                     <i style="font-size: 20px; padding-right: 10px;" class="fas fa-video"></i>
@@ -112,7 +114,7 @@
                             </th>
 
                             {% if request.user.is_superuser or request.user.is_lecturer %}
-                            <td>
+                          <td>
                                 <div class="update-delete">
                                     <a href="{% url 'upload_video_edit' slug=course.slug video_slug=video.slug %}"
                                         class="update" title="Edit">
@@ -151,7 +153,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <div class="row">
         <div class="col-md-12 p-0">
@@ -214,7 +216,7 @@
                                     {% if request.user.is_superuser or request.user.is_lecturer %}
                                     <a href="{% url 'upload_file_view' course.slug %}">
                                         <i class="primary" style="font-size: 22px;">
-                                            Upload now.
+                                            Загрузить.
                                         </i>
                                         {% endif %}
                                     </a>
@@ -230,7 +232,7 @@
             </div>
         </div>
     </div>
--->
+
 </div>
 
 <div class="site-section">
