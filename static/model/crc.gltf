@@ -23,6 +23,22 @@
 			]
 		}
 	],
+	"materials":[
+		{
+			"doubleSided":true,
+			"name":"Material.001",
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					0.8000000715255737,
+					0.17150191962718964,
+					0.020579757168889046,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
+		}
+	],
 	"meshes":[
 		{
 			"name":"Circle",
@@ -33,7 +49,8 @@
 						"TEXCOORD_0":1,
 						"NORMAL":2
 					},
-					"indices":3
+					"indices":3,
+					"material":0
 				}
 			]
 		}
