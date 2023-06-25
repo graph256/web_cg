@@ -351,7 +351,7 @@ class Sitting(models.Model):
 
 class Question(models.Model):
     quiz = models.ManyToManyField(Quiz, verbose_name=_("Тест"), blank=True)
-    content = RichTextUploadingField(
+    content = RichTextUploadingField(max_length=250000,
         help_text=_("Введите текст вопроса, который вы хотите отобразить"), verbose_name=_('Вопрос'))
     explanation = RichTextUploadingField(max_length=2000, blank=True,
         help_text=_("Объяснение, которое будет показано после ответа на вопрос."),
